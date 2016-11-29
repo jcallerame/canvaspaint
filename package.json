@@ -16,6 +16,5 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "John Callerame",
-  "license": "MIT"
+  "author": "John Callerame"
 }
