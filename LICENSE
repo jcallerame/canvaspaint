@@ -1,0 +1,28 @@
+The contents of this directory and all subdirectories, except for the files noted below, are distributed under the GNU
+General Public License, Version 3.
+See the file COPYING in this directory for license terms.
+
+The file "polyfills.js" is distributed under the license contained in that file.
+
+The files "spectrum.css" and "spectrum.js" are distributed under the MIT license.
+
+The file "move-icon.svg" in the "img" directory is distributed under the Creative Commons Public License.  See
+https://creativecommons.org/licenses/by/3.0/us/legalcode for license terms for that file.
+
+The image in the file "pencil.png" in the "img/tools" directory was created by Tomáš Otrubčák and is distributed under
+the Creative Commons Public License.  See https://creativecommons.org/licenses/by/3.0/us/legalcode for license terms for
+those files.  The file "pencil-selected.png" in the same directory contains a modified version of the image, and that
+file also subject to the Creative Commons Public License.
+
+The image in the file "paint-bucket.png" in the "img/tools" directory was created by Mister Pixel and is distributed
+under the Creative Commons Public License.  See https://creativecommons.org/licenses/by/3.0/us/legalcode for license
+terms for those files.  The file "paint-bucket-selected.png" in the same directory contains a modified version of the
+image, and that file also subject to the Creative Commons Public License.
+
+The image in the file "paintbrush.png" in the "img/tools" directory was created by Daniel Llamas Soto, ES and is
+distributed under the Creative Commons Public License.  See https://creativecommons.org/licenses/by/3.0/us/legalcode
+for license terms for those files.  The file "paintbrush-selected.png" in the same directory contains a modified version
+of the image, and that file also subject to the Creative Commons Public License.
+
+The image in the file "eraser.png" in the "img/tools" directory and the image in the file "pencil.png" in the
+"img/cursors" directory are in the public domain.

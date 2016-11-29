@@ -1,0 +1,382 @@
+/*
+ * CanvasPaint - A web application for drawing and painting
+ * Copyright (c) 2016 John Callerame
+
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+body {
+  font-family: sans-serif;
+}
+
+#title-div-container {
+  text-align: center;
+}
+
+#title-div {
+  display: inline-block;
+  font-size: 42px;
+}
+
+#title-div:hover {
+  border: 1px solid #DDD;
+}
+
+#title-div.untitled {
+  font-style: italic;
+  color: grey;
+}
+
+#flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+#toolbox {
+  flex-basis: 0 0 200px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+#canvas-and-space-below {
+  position: relative;
+  flex: 0 0 800px;
+}
+
+#tool-options {
+  line-height: 1.5;
+}
+
+.button {
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 12pt;
+  background-color: white;
+  color: black;
+}
+
+.toolbox-button {
+  width: 37px;
+  height: 37px;
+  margin-bottom: 4px;
+  background-size: 32px 32px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.toolbox-button:hover {
+  background-color: #EEE;
+}
+
+#draw-button {
+  background-image: url('img/tools/pencil.png');
+}
+#draw-button.selected {
+  background-image: url('img/tools/pencil-selected.png');
+}
+
+#line-button {
+  background-image: url('img/tools/line1.png');
+}
+#line-button.selected {
+  background-image: url('img/tools/line1-selected.png');
+}
+
+#rect-button {
+  background-image: url('img/tools/rect1.png');
+}
+#rect-button.selected {
+  background-image: url('img/tools/rect1-selected.png');
+}
+
+#ellipse-button {
+  background-image: url('img/tools/ellipse1.png');
+}
+#ellipse-button.selected {
+  background-image: url('img/tools/ellipse1-selected.png');
+}
+
+#poly-button {
+  background-image: url('img/tools/star1.png');
+}
+#poly-button.selected {
+  background-image: url('img/tools/star1-selected.png');
+}
+
+#text-button {
+  background-image: url('img/tools/text.png');
+}
+#text-button.selected {
+  background-image: url('img/tools/text-selected.png');
+}
+
+#paint-button {
+  background-image: url('img/tools/paintbrush.png');
+}
+#paint-button.selected {
+  background-image: url('img/tools/paintbrush-selected.png');
+}
+
+#fill-button {
+  background-image: url('img/tools/paint-bucket.png');
+}
+#fill-button.selected {
+  background-image: url('img/tools/paint-bucket-selected.png');
+}
+
+#eraser-button {
+  background-image: url('img/tools/eraser.png');
+}
+#eraser-button.selected {
+  background-image: url('img/tools/eraser-selected.png');
+}
+
+.button[disabled] {
+  color: grey;
+  border-color: grey;
+}
+
+.toolbox-button.selected {
+  background-color: blue;
+  color: white;
+}
+
+.text-style-button {
+  width: 26px;
+}
+
+#bold-button {
+  font-weight: bold;
+}
+
+#italics-button {
+  font-style: italic;
+}
+
+.text-style-button.selected {
+  background-color: orange;
+}
+
+.indented {
+  margin-left: 18px;
+}
+
+.indenter {
+  display: inline-block;
+  width: 18px;
+}
+
+.top-space {
+  margin-top: 15px;
+}
+
+#canvas-container {
+  position: relative;
+  border: 1px solid black;
+  width: 800px;
+  height: 500px;
+  overflow: hidden;
+}
+
+#canvas.draw-selected {
+  cursor: url('img/cursors/pencil.png') 11 27, auto;
+}
+
+#canvas.line-selected, #canvas.rect-selected, #canvas.poly-selected {
+  cursor: crosshair;
+}
+
+#canvas.paint-selected {
+  cursor: none;
+}
+
+.tip {
+  display: none;
+  font-style: italic;
+  text-align: center;
+}
+
+::-moz-selection {
+  background-color: rgba(100, 198, 255, 0.5);
+}
+
+::selection {
+  background-color: rgba(100, 198, 255, 0.5);
+}
+
+/*
+.slider {
+  position: absolute;
+  left: 80px;
+  width: 123px;
+}
+*/
+
+.slider-setting-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.slider-label {
+  width: 79px;
+  flex: 0 0 79px;
+}
+
+.slider-with-readout {
+  display: inline-block;
+  width: 123px;
+  flex: 0 0 123px;
+}
+
+.slider {
+  width: 123px;
+  padding: 0;
+  margin: 0;
+}
+
+.readout {
+  font-size: 9pt;
+  text-align: center;
+  margin-top: -5px;
+}
+
+.brush {
+  width: 28px;
+  height: 28px;
+  border: 2px solid black;
+  margin: 3px;
+}
+
+.brush.selected {
+  border-color: red;
+}
+
+.dropdown-button {
+  cursor: default;
+}
+
+.dropdown-button.active {
+  background-color: blue;
+  color: white;
+}
+
+#save-button {
+  position: absolute;
+  right: 0px;
+}
+
+.dropdown-menu {
+  margin-top: 3px;
+  border: 1px solid black;
+  border-radius: 5px;
+  display: none;
+  cursor: pointer;
+}
+
+#save-options {
+  position: absolute;
+  right: 0px;
+}
+
+.dropdown-option {
+  margin: 4px;
+}
+
+.dropdown-option:hover {
+  background-color: #EEE;
+}
+
+#font-dropdown {
+  display: inline-block;
+  border: 1px solid black;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#font-options {
+  position: absolute;
+  background-color: white;
+  z-index: 1;
+  height: 180px;
+  overflow-y: auto;
+}
+
+#button-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+#modal-overlay {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  opacity: 0.5;
+}
+
+.modal {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  border: 2px solid black;
+  background-color: white;
+  padding: 10px;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 50%; opacity: 1}
+}
+
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 50%; opacity: 1}
+}
+
+.modal-link {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.modal-title {
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.modal-body {
+  margin-bottom: 12px;
+}
+
+.modal-buttons {
+  text-align: center;
+}

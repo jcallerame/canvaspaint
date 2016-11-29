@@ -1,0 +1,21 @@
+{
+  "name": "CanvasPaint",
+  "version": "0.1.0",
+  "description": "Canvas-based draw and paint web application",
+  "main": "draw.js",
+  "dependencies": {
+    "babel-preset-es2015": "^6.9.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-babel": "^6.1.2",
+    "gulp-concat": "^2.6.0",
+    "browser-sync": "^2.17.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "John Callerame",
+  "license": "MIT"
+}

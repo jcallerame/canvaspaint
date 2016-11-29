@@ -1,0 +1,167 @@
+<!--
+ CanvasPaint - A web application for drawing and painting
+ Copyright (c) 2016 John Callerame
+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CanvasPaint - Untitled</title>
+    <link rel="stylesheet" href="paint.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="spectrum.js"></script>
+    <link rel="stylesheet" href="spectrum.css">
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Crimson+Text|Dancing+Script|Fontdiner+Swanky|Handlee|Inconsolata|Indie+Flower|Josefin+Slab|Lobster|Montez|Nothing+You+Could+Do|Oxygen|Risque|Roboto|Roboto+Condensed|Tangerine|Ubuntu" rel="stylesheet">
+    <script src="polyfills.js"></script>
+    <script src="dist/all.js"></script>
+  </head>
+  <body>
+    <div id="title-div-container">
+      <div id="title-div" class="untitled" contenteditable tabindex="0" spellcheck="false">Untitled</div>
+    </div>
+    <div style="height: 15px;"></div>
+    <div id="flex-container">
+      <div id="toolbox">
+        <div id="tool-buttons">
+          <button id="draw-button" class="button toolbox-button selected" title="Draw"></button>
+          <button id="line-button" class="button toolbox-button" title="Line"></button>
+          <button id="rect-button" class="button toolbox-button" title="Rectangle"></button>
+          <button id="ellipse-button" class="button toolbox-button" title="Ellipse"></button>
+          <button id="poly-button" class="button toolbox-button" title="Polyline / Polygon"></button>
+          <button id="text-button" class="button toolbox-button" title="Text"></button>
+          <button id="paint-button" class="button toolbox-button" title="Paint"></button>
+          <button id="fill-button" class="button toolbox-button" title="Flood Fill"></button>
+          <button id="eraser-button" class="button toolbox-button" title="Eraser"></button>
+        </div>
+        <div style="height: 50px;"></div>
+        <div id="tool-options">
+          <div class="text-settings">
+            Font: <div id="font-dropdown" class="dropdown-button" data-target="#font-options"><span id="font-dropdown-text"></span> <span style="font-size: 10px;">&#9660;</span></div>
+            <div id="font-options" class="dropdown-menu"></div>
+            <div style="height: 6px;"></div>
+            <div class="indented">
+              Style:
+              <button id="bold-button" class="button text-style-button">B</button>
+              <button id="italics-button" class="button text-style-button">I</button>
+            </div>
+          </div>
+          <div style="height: 15px;"></div>
+          <div class="draw-settings line-settings rect-settings ellipse-settings poly-settings text-settings paint-settings">
+            <input id="stroke-checkbox" type="checkbox" class="rect-settings ellipse-settings poly-settings text-settings" checked>Stroke: <input id="stroke-color" type="text"><br>
+            <div class="slider-setting-container draw-settings line-settings rect-settings ellipse-settings poly-settings text-settings">
+              <div class="slider-label">
+                <div class="indenter"></div>
+                Width:
+              </div>
+              <div class="slider-with-readout">
+                <input id="stroke-width" type="range" class="slider" data-readout="#stroke-width-readout" min="1" max="15" value="1"><br>
+                <div id="stroke-width-readout" class="readout">1</div>
+              </div>
+            </div>
+          </div>
+          <div class="top-space rect-settings ellipse-settings poly-settings text-settings fill-settings">
+            <input id="fill-checkbox" type="checkbox" class="rect-settings ellipse-settings poly-settings text-settings">Fill: <input id="fill-color" type="text"><br>
+          </div>
+          <div class="paint-settings">
+            Brushes:<br>
+            <div id="brushes" class="paint-settings"></div>
+          </div>
+          <div class="paint-settings">
+            <div class="slider-setting-container">
+              <div class="slider-label">
+              Size:
+              </div>
+              <div class="slider-with-readout">
+                <input id="brush-size" type="range" class="slider" data-readout="#brush-size-readout" min="1" max="100" value="30"><br>
+                <div id="brush-size-readout" class="readout">30</div>
+              </div>
+            </div>
+            <div class="slider-setting-container">
+              <div class="slider-label">
+                Spacing:
+              </div>
+              <div class="slider-with-readout">
+                <input id="brush-spacing" type="range" class="slider" data-readout="#brush-spacing-readout" min="1" max="20" value="4"><br>
+                <div id="brush-spacing-readout" class="readout">4</div>
+              </div>
+            </div>
+          </div>
+          <div class="slider-setting-container top-space draw-settings line-settings rect-settings ellipse-settings poly-settings text-settings paint-settings fill-settings">
+            <div class="slider-label">
+              Opacity:
+            </div>
+            <div class="slider-with-readout">
+              <input id="opacity" type="range" class="slider" data-readout="#opacity-readout" min="1" max="100" value="100"><br>
+              <div id="opacity-readout" class="readout">100</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="canvas-and-space-below">
+        <div id="canvas-container">
+          <canvas id="canvas" width="800" height="500" class="draw-selected"></canvas>
+        </div>
+        <div style="height: 8px;"></div>
+        <div style="height: 14px;">
+          <div id="line-tip" class="tip">Hold down the shift key to draw horizontal or vertical lines.</div>
+          <div id="rect-tip" class="tip">Hold down the shift key to draw squares.</div>
+          <div id="ellipse-tip" class="tip">Hold down the shift key to draw circles.</div>
+          <div id="poly-tip" class="tip">Hold down the shift key to draw horizontal or vertical lines.  Press Return to close the path.  Press Esc to stop drawing.</div>
+        </div>
+        <div style="height: 8px;"></div>
+        <div id="button-row">
+          <div>
+            <button id="clear-button" class="button">Clear</button>&nbsp;&nbsp;
+            <button id="undo-button" class="button" disabled>Undo</button>&nbsp;&nbsp;
+            <button id="redo-button" class="button" disabled>Redo</button>
+          </div>
+          <div style="margin-top: 5px;"><a class="modal-link" data-target="#credits-modal">credits</a></div>
+          <div>
+            <button id="save-as-png-button" class="button">Save as PNG</button>
+            <button id="save-as-jpeg-button" class="button">Save as JPEG</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="modal-overlay"></div>
+    <div id="credits-modal" class="modal">
+      <div class="modal-title">CanvasPaint</div>
+      <div class="modal-body">
+        Application design and programming by <a href="http://www.elsewhen.org/">John Callerame</a><br><br>
+
+        Color picker - <a href="https://bgrins.github.io/spectrum/">Spectrum</a> by <a href="https://twitter.com/bgrins">Brian Grinstead</a><br><br>
+
+        Ellipse polyfill from <a href="https://github.com/google/canvas-5-polyfill">HTML 5 Canvas Polyfill</a> by <a href="http://src.chromium.org/svn/trunk/src/AUTHORS">The Chromium Authors</a><br><br>
+
+        Move icon - <a href="https://thenounproject.com/term/move/2862/">"Move" by P.J. Onori</a> from the <a href="https://thenounproject.com">Noun Project</a><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;License: <a href="https://creativecommons.org/licenses/by/3.0/us/legalcode">Creative Commons Public License</a><br><br>
+
+        Pencil icon (in tool palette) - "Pencil" by Tomáš Otrubčák from the <a href="https://thenounproject.com">Noun Project</a><br><br>
+
+        Paintbrush icon - "Brush" by Daniel Llamas Soto from the <a href="https://thenounproject.com">Noun Project</a><br><br>
+
+        Flood fill icon - "bucket" by Mister Pixel from <a href="https://thenounproject.com">Noun Project</a><br><br>
+
+        Eraser icon - "Eraser" by Terrence Kevin Oleary - the <a href="https://thenounproject.com">Noun Project</a><br><br>
+
+        Pencil mouse cursor by Nibbler at <a href="http://www.rw-designer.com/">http://www.rw-designer.com/</a>
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-cancel-button button">OK</button>
+      </div>
+    </div>
+  </body>
+</html>
