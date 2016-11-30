@@ -1,4 +1,4 @@
-# canvaspaint
+# CanvasPaint
 
 CanvasPaint is a web-based drawing and painting application which uses the HTML5 Canvas.  
 
