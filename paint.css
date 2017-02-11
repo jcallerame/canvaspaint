@@ -344,6 +344,7 @@ body {
   border: 2px solid black;
   background-color: white;
   padding: 10px;
+  box-shadow: 0 4px 9px 0 rgba(0,0,0,0.2),0 6px 21px 0 rgba(0,0,0,0.18);
   animation-name: animatetop;
   animation-duration: 0.4s;
   -webkit-animation-name: animatetop;
